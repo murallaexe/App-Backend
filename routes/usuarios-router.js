@@ -58,6 +58,26 @@ router.get('/:id',function(req,res){
     });
 });
 
+//obtener datos motorista
+
+router.get('/:id/motorista',function(req,res){
+    usuario.find({_id: req.params.id},{
+        _id:true,
+        nombreUsuario:true,
+        telefono:true,
+        ordenes:true,
+        placaVehiculo:true
+    })
+    .then(result=>{
+        res.send(result[0]);
+        res.end();
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
 
 //login sin tokens
 router.post('/login2', function(req,res){
@@ -119,7 +139,7 @@ function verifyToken(req,res,next){
         res.sendStatus(403);
     }
 }
-//actualizar la data
+//actualizar la data del usuario
 router.put('/:id',function(req,res){
     usuario.update(
         {_id:req.params.id},
@@ -166,7 +186,7 @@ router.post('/:id/tarjetaCredito',function(req,res){
         res.end();
     })
 })
-
+//borrar tarjetas de credito
 router.delete('/:idUsuario/tarjetaCredito/:idtarjeta',function(req,res){
     usuario.update(
         {_id: req.params.idUsuario,},
@@ -202,7 +222,6 @@ router.post('/:idUsuario/ordenes',function (req, res) {
                     tiempoEntrega:req.body.tiempoEntrega,
                     metodoPago:req.body.metodoPago,
                     numeroPago:req.body.numeroPago,
-                    tipoOrden:"no completada",
                     comision:50.00,
                     estadoOrden:'no tomada',
                 }
@@ -236,6 +255,98 @@ router.get('/:idUsuario/registro',function(req,res){
 });
 
 
-
-
+//cambiar de cliente normal a motorista
+router.post('/:idUsuario/admin/motorista',function(req,res){
+    usuario.update(
+        {
+            _id:req.params.idUsuario
+        },
+        {
+            $push:{
+                "ordenes":[],
+            },
+            "placaVehiculo":req.body.placaVehiculo,
+            tipoUsuario:'motorista',
+        },
+        {multi:true}
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+})
+//Tomar la orden del motorista
+router.post('/:idUsuario/motorista/ordenes',function (req, res) {
+    usuario.update(
+        {
+            _id:req.params.idUsuario
+        },
+        {
+            $push:{
+                "ordenes":{
+                    _id:mongoose.Types.ObjectId(),
+                    idDatabaseOrden:req.body.idDatabaseOrden,
+                    idCliente:req.body.idCliente,
+                    idOrden:req.body.idOrden,
+                    empresa:req.body.empresa,
+                    producto:req.body.producto,
+                    estadoOrden:req.body.estadoOrden,
+                    descripcionPedido:req.body.descripcionPedido,
+                    cantidadProducto:req.body.cantidadProducto,
+                    tiempoEntrega:req.body.tiempoEntrega,
+                    precioProducto:req.body.precioProducto,
+                    comision:req.body.comision,
+                    nombreCliente:req.body.nombreCliente,
+                    telefonCliente:req.body.telefonCliente,
+                    direccioncliente:req.body.direccioncliente,
+                    metodoPago:req.body.metodoPago,
+                }
+            }
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+//cambiar estado de orden de tomada a otra menos completada
+router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden', function(req,res){
+    usuario.updateOne(
+        {
+            _id:req.params.idUsuario,
+            "listaPedidos._id": mongoose.Types.ObjectId(req.params.idOrden)
+        },
+        {
+            $set:{'listaPedidos.$.estadoOrden':req.body.estadoOrden}
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+//cambio de estado de motorista
+router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden/motorista', function(req,res){
+    usuario.updateOne(
+        {
+            _id:req.params.idUsuario,
+            "ordenes._id": mongoose.Types.ObjectId(req.params.idOrden)
+        },
+        {
+            $set:{'ordenes.$.estadoOrden':req.body.estadoOrden}
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
 module.exports = router;

@@ -15,8 +15,10 @@ var esquema = new mongoose.Schema({
     apodo: String,
     tipoUsuario: String,
     UrlFoto:String,
+    placaVehiculo:String,
     tarjetas: Array,
     listaPedidos: Array,
+    ordenes:Array
 });
 
 module.exports = mongoose.model('usuarios',esquema);

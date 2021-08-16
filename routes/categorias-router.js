@@ -78,15 +78,6 @@ router.get('/:idCategoria/comercio/:idComercio/producto/', function(req,res){
         {
             nombreCategoria:true,
             'comercios.nombreEmpresa.$':true,
-            //'comercios.nombreEmpresa':true,
-            //'comercios.productos':true
-            
-            ////_id:true,
-            ////nombreCategoria:true,
-            //'comercios._id':true,
-            //'comercios.productos.nombreProducto':true,
-            // 'comercios.productos.marcaProducto':true,
-            // 'comercios.productos.precio':true,
         }
     ).then(result=>{
         res.send(result[0]);

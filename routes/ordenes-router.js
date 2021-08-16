@@ -19,7 +19,7 @@ router.post('/',function (req, res) {
     let ordens = new orden({
         _id : mongoose.Types.ObjectId(),
         idOrden:req.body.idOrden,
-        tipoOrden:"no completada",
+        
         comision:50.00,
         estadoOrden:'no tomada',
         nombreMotorista:'',
@@ -34,6 +34,7 @@ router.post('/',function (req, res) {
         metodoPago:req.body.metodoPago,
         numeroPago:req.body.numeroPago,
         idCliente:req.body.idCliente,
+        
         nombreCliente:req.body.nombreCliente,
         telefonCliente:req.body.telefonCliente,
         descripcionPedido:req.body.descripcionPedido,
@@ -47,7 +48,56 @@ router.post('/',function (req, res) {
         res.end();
     });
 }); 
+//ordenes no tomadas
+router.get('/',function (req, res){
+    orden.find({
+        estadoOrden: "no tomada"
+    },{})
+    .then(result=>{
+        res.send(result);
+        res.end();
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
+router.put('/:idOrden', function(req,res){
+    orden.update(
+        {
+            _id:req.params.idOrden
+        },
+        {
+            estadoOrden:req.body.estadoOrden,
+            nombreMotorista:req.body.nombreMotorista,
+            Idmotorista:req.body.Idmotorista,
+            placaVehiculo:req.body.placaVehiculo,
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
 
 
-
+router.put('/:idOrden/CambiosEstadoOrdenes/', function(req,res){
+    orden.updateOne(
+        {
+            _id:req.params.idOrden,
+        },
+        {
+            $set:{'estadoOrden':req.body.estadoOrden}
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
 module.exports = router;

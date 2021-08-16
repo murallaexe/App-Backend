@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 var esquema = new mongoose.Schema({
     idOrden:String,
-    tipoOrden:String,
     comision:String,
     estadoOrden:String,
     nombreMotorista:String,
@@ -21,6 +20,7 @@ var esquema = new mongoose.Schema({
     telefonCliente:String,
     descripcionPedido:String,
     direccioncliente:String,
+    
 });
 
 module.exports = mongoose.model('ordenes',esquema);
