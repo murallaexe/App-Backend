@@ -90,7 +90,9 @@ router.put('/:idOrden/CambiosEstadoOrdenes/', function(req,res){
             _id:req.params.idOrden,
         },
         {
-            $set:{'estadoOrden':req.body.estadoOrden}
+            $set:{'estadoOrden':req.body.estadoOrden,
+                  precioProducto :req.body.precio
+        }
         }
     ).then(result=>{
         res.send(result);
@@ -100,4 +102,5 @@ router.put('/:idOrden/CambiosEstadoOrdenes/', function(req,res){
         res.end();
     });
 });
+
 module.exports = router;

@@ -313,7 +313,7 @@ router.post('/:idUsuario/motorista/ordenes',function (req, res) {
         res.end();
     });
 });
-//cambiar estado de orden de tomada a otra menos completada
+//cambiar estado de orden de tomada 
 router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden', function(req,res){
     usuario.updateOne(
         {
@@ -321,7 +321,10 @@ router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden', function(req,res){
             "listaPedidos._id": mongoose.Types.ObjectId(req.params.idOrden)
         },
         {
-            $set:{'listaPedidos.$.estadoOrden':req.body.estadoOrden}
+            $set:{
+                'listaPedidos.$.estadoOrden':req.body.estadoOrden,
+                'listaPedidos.$.precioProducto':req.body.precio
+            }
         }
     ).then(result=>{
         res.send(result);
@@ -339,7 +342,10 @@ router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden/motorista', function(req,r
             "ordenes._id": mongoose.Types.ObjectId(req.params.idOrden)
         },
         {
-            $set:{'ordenes.$.estadoOrden':req.body.estadoOrden}
+            $set:{
+                'ordenes.$.estadoOrden':req.body.estadoOrden,
+                'ordenes.$.precioProducto':req.body.precio,
+            }
         }
     ).then(result=>{
         res.send(result);
@@ -349,4 +355,5 @@ router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden/motorista', function(req,r
         res.end();
     });
 });
+
 module.exports = router;
