@@ -12,6 +12,8 @@ var app = express();
 app.use(cors());//permita peticiones de otros origenes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+
 app.use('/usuarios', usuariosRouter);
 app.use('/categorias', categoriasRouter);
 app.use('/ordenes', ordenesRouter);
@@ -22,5 +24,5 @@ app.get('/',function(req,res){
 });
 
 app.listen(8888, function(){
-    console.log("servidor levantado");
+    console.log("Backend online in port: 8888");
 });

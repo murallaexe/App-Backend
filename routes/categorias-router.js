@@ -6,7 +6,7 @@ var categoria = require('../models/categorias');
 //todas las categorias
 router.get('/', function(req,res){
     categoria.find({},
-        {_id:true, comercios:true, nombreCategoria:true}
+        {}
     ).then(result=>{
         res.send(result);
         res.end();
@@ -19,7 +19,7 @@ router.get('/', function(req,res){
 //una categoria
 router.get('/:idCategoria', function(req,res){
     categoria.find({_id:req.params.idCategoria},
-        {_id:true,nombreCategoria:true,comercios:true}
+        {}
     ).then(result=>{
         res.send(result[0]);
         res.end();
@@ -29,7 +29,7 @@ router.get('/:idCategoria', function(req,res){
         res.end();
     })
 });
-//productos o combos
+//productos o combos (Ojo revisar) 
 router.get('/:idCategoria/productos/:idComercio', function(req,res){
     categoria.find({
         _id:req.params.idCategoria,
