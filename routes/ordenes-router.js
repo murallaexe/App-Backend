@@ -48,10 +48,10 @@ router.post('/',function (req, res) {
         res.end();
     });
 }); 
+
 //ordenes no tomadas
 router.get('/',function (req, res){
     orden.find({
-        estadoOrden: "no tomada"
     },{})
     .then(result=>{
         res.send(result);
@@ -62,6 +62,22 @@ router.get('/',function (req, res){
         res.end();
     });
 });
+
+
+// //ordenes no tomadas
+// router.get('/',function (req, res){
+//     orden.find({
+//         estadoOrden: "no tomada"
+//     },{})
+//     .then(result=>{
+//         res.send(result);
+//         res.end();
+//     })
+//     .catch(error=>{
+//         res.send(error);
+//         res.end();
+//     });
+// });
 
 router.put('/:idOrden', function(req,res){
     orden.update(

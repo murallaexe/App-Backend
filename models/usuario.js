@@ -18,7 +18,8 @@ var esquema = new mongoose.Schema({
     placaVehiculo:String,
     tarjetas: Array,
     listaPedidos: Array,
-    ordenes:Array
+    ordenes:Array,
+    estado: Boolean
 });
 
 module.exports = mongoose.model('usuarios',esquema);

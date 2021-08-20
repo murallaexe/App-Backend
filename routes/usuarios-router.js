@@ -61,7 +61,11 @@ router.get('/:id',function(req,res){
 //obtener datos motorista
 
 router.get('/:id/motorista',function(req,res){
-    usuario.find({_id: req.params.id},{
+    usuario.find(
+        {
+            _id: req.params.id
+        }
+        ,{
         _id:true,
         nombreUsuario:true,
         telefono:true,
@@ -267,6 +271,7 @@ router.post('/:idUsuario/admin/motorista',function(req,res){
             },
             "placaVehiculo":req.body.placaVehiculo,
             tipoUsuario:'motorista',
+            estado:true
         },
         {multi:true}
     ).then(result=>{
@@ -356,4 +361,37 @@ router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden/motorista', function(req,r
     });
 });
 
+// //retorna todos los usuarios
+// router.get('/' , (req, res) => {
+//     usuario.find(
+//         {},{}
+//     ).then(result=>{
+//         res.send(result);
+//         res.end();
+//     }).catch(error=>{
+//         res.send(error);
+//         res.end();
+//     });
+// })
+
+//retorna usuarios solo administradores
+router.get('/' , (req, res) => {
+    usuario.find(
+        {},{}
+    ).then(result=>{
+        // let data = [];
+        // result.forEach(element => {
+        //     if (element.tipoUsuario == 'administrador') {
+        //         data.push(element);
+        //     }
+        // });
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+})
+
 module.exports = router;
+
