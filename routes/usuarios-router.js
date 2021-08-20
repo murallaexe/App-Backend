@@ -22,6 +22,9 @@ router.post('/',function(req,res){
         UrlFoto:"",
         tarjetas:[],
         listaPedidos:[],
+        solicitud:false,
+        estado:false
+
     });
     u.save().then(result=>{
         res.send(result);
@@ -100,7 +103,12 @@ router.post('/login2', function(req,res){
 
 //login con tokens
 router.post('/login', function(req,res){
-    usuario.findOne({correoUsuario: req.body.email, contraseniaUsuario: req.body.password},{_id:true, "tipoUsuario":true,nombreUsuario:true}).
+    usuario.findOne({correoUsuario: req.body.email, contraseniaUsuario: req.body.password},{
+        _id:true, 
+        "tipoUsuario":true,nombreUsuario:true,
+        UrlFoto:true,
+        solicitud:true
+    }).
     then(result=>{
         if(!result){
             res.status(200).send({Code:0,data:result});
@@ -227,7 +235,7 @@ router.post('/:idUsuario/ordenes',function (req, res) {
                     metodoPago:req.body.metodoPago,
                     numeroPago:req.body.numeroPago,
                     comision:50.00,
-                    estadoOrden:'no tomada',
+                    estadoOrden:'origen',
                 }
             }
         }
@@ -271,7 +279,7 @@ router.post('/:idUsuario/admin/motorista',function(req,res){
             },
             "placaVehiculo":req.body.placaVehiculo,
             tipoUsuario:'motorista',
-            estado:true
+            estado:true,
         },
         {multi:true}
     ).then(result=>{
@@ -329,6 +337,25 @@ router.put('/:idUsuario/CambiosEstadoOrdenes/:idOrden', function(req,res){
             $set:{
                 'listaPedidos.$.estadoOrden':req.body.estadoOrden,
                 'listaPedidos.$.precioProducto':req.body.precio
+            }
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
+router.put('/:idUsuario/estadoMotorista', function(req,res){
+    usuario.updateOne(
+        {
+            _id:req.params.idUsuario
+        },
+        {
+            $set:{
+                solicitud:true
             }
         }
     ).then(result=>{

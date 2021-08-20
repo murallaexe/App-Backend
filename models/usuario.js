@@ -19,7 +19,8 @@ var esquema = new mongoose.Schema({
     tarjetas: Array,
     listaPedidos: Array,
     ordenes:Array,
-    estado: Boolean
+    estado: Boolean,
+    solicitud:Boolean
 });
 
 module.exports = mongoose.model('usuarios',esquema);

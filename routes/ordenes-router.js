@@ -21,7 +21,7 @@ router.post('/',function (req, res) {
         idOrden:req.body.idOrden,
         
         comision:50.00,
-        estadoOrden:'no tomada',
+        estadoOrden:'origen',
         nombreMotorista:'',
         Idmotorista:'',
         placaVehiculo:'',

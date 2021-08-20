@@ -38,6 +38,8 @@ router.get('/:idCategoria/productos/:idComercio', function(req,res){
             _id:true,
             'comercios.productos.$':true,
             'comercios.nombreEmpresa':true,
+            'comercios.imagenComercio':true,
+            'comercios.imagenPortada':true,
             'comercios.imagenBanner':true,
             'comercios.tipoEmpresa':true,
             'comercios.LemaEmpresa':true,
