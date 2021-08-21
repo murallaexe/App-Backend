@@ -7,10 +7,12 @@ var esquema = new mongoose.Schema({
     nombreMotorista:String,
     Idmotorista:String,
     placaVehiculo:String,
+    
     empresa: String,
     producto: String,
     precioProducto:String,
     cantidadProducto:String,
+
     tipoEntrega: String,
     tiempoEntrega:  String,
     metodoPago:String,
@@ -20,7 +22,14 @@ var esquema = new mongoose.Schema({
     telefonCliente:String,
     descripcionPedido:String,
     direccioncliente:String,
-    
+    productos:Array,
 });
 
 module.exports = mongoose.model('ordenes',esquema);
+
+
+
+// 
+// 
+// 
+// 

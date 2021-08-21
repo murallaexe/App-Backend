@@ -49,6 +49,67 @@ router.post('/',function (req, res) {
     });
 }); 
 
+router.post('/Array',function (req, res) {
+    let ordens = new orden({
+        _id : mongoose.Types.ObjectId(),
+        idOrden:req.body.idOrden,
+        
+        comision:150.00,
+        estadoOrden:'origen',
+        nombreMotorista:'',
+        Idmotorista:'',
+        placaVehiculo:'',
+
+        tipoEntrega:req.body.tipoEntrega,
+        tiempoEntrega:req.body.tiempoEntrega,
+        metodoPago:req.body.metodoPago,
+        numeroPago:req.body.numeroPago,
+        descripcionPedido:req.body.descripcionPedido,
+
+        producto:'Pedido especial',
+        precioProducto:req.body.precioProducto,
+        cantidadProducto:req.body.cantidadProducto,
+
+        idCliente:req.body.idCliente,
+        nombreCliente:req.body.nombreCliente,
+        telefonCliente:req.body.telefonCliente,
+        direccioncliente:req.body.direccioncliente,
+        productos:[]
+    });
+    ordens.save().then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+}); 
+
+router.post('/:idOrden/Array',function (req, res) {
+    orden.update(
+        {
+            _id:mongoose.Types.ObjectId(req.params.idOrden)
+        },
+        {
+            $push:{
+                "productos":{
+                    _id:mongoose.Types.ObjectId(),
+                    empresa:req.body.empresa,
+                    producto:req.body.producto,
+                    precioProducto:req.body.precioProducto,
+                    cantidadProducto:req.body.cantidadProducto
+                }
+            }
+        }
+    ).then(result=>{
+        res.send(result);
+        res.end();
+    }).catch(error=>{
+        res.send(error);
+        res.end();
+    });
+});
+
 //ordenes no tomadas
 router.get('/',function (req, res){
     orden.find({

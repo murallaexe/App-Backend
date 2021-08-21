@@ -315,6 +315,7 @@ router.post('/:idUsuario/motorista/ordenes',function (req, res) {
                     telefonCliente:req.body.telefonCliente,
                     direccioncliente:req.body.direccioncliente,
                     metodoPago:req.body.metodoPago,
+                    productos:req.body.productos,
                 }
             }
         }
