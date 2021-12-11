@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 let bd = 'VejaDelivery';
-let port = '27017';
+let port = '3000';
 let host = 'vejadelivery.herokuapp.com';
 
 class Database{
