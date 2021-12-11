@@ -23,6 +23,13 @@ app.get('/',function(req,res){
     res.send('Servidor backend en line');
 });
 
+// app.set('port', process.env.PORT || 3000)
+
+// server.listen(app.get('port'),()=>{
+//     console.log('server on port ${app.get('port')}');
+// });
+
+
 app.listen(8888, function(){
     console.log("Backend online in port: 8888");
 });

@@ -1,4 +1,14 @@
 {
+  "name": "delivery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Index.js",
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon Index.js",
+    "start": "node Index.js"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -6,5 +16,6 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.3"
+
   }
 }
