@@ -22,7 +22,7 @@ app.use('/ordenes', ordenesRouter);
 
 app.get('/',function(req,res){
     //res.send(testModule.mostrarmensaje()+testModule.x); //para prueba del modulo
-    res.send('Servidor backend en line');
+    res.send('Servidor backend en linea');
 });
 
 // app.set('port', process.env.PORT || 3000)
