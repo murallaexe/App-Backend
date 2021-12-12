@@ -29,9 +29,13 @@ app.get('/',function(req,res){
 //     console.log('server on port ${app.get('port')}');
 // });
 
-var port_number = server.listen(process.env.PORT || 3000);
-app.listen(port_number);
+// var port_number = server.listen(process.env.PORT || 3000);
+// app.listen(port_number);
 
 // app.listen(8888, function(){
 //     console.log("Backend online in port: 8888");
 // });
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`App listening on ${process.env.PORT || 3000} port!`);
+});
