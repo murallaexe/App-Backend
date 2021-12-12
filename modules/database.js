@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 class Database {
     constructor () {
-            mongoose.connect(`mongodb+srv://muralla98:*****@cluster0.unaj4.mongodb.net/test?authSource=admin&replicaSet=atlas-7ssyth-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`,
+            mongoose.connect(`mongodb+srv://muralla98:Ramosjaniel98.@cluster0.unaj4.mongodb.net/test?authSource=admin&replicaSet=atlas-7ssyth-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`,
                 { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
             )
             //mongoose.connect(`mongodb+srv://delivery:delivery@projectdw.ar2xk.mongodb.net/test`, { useNewUrlParser: true, useUnifiedTopology: true })
